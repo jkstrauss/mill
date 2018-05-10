@@ -38,6 +38,7 @@ object MainTests extends TestSuite{
       import mill.util.TestUtil.{test,BaseModule}
       object hyphenated extends BaseModule {
         val `two-words` = test()
+        val `this&that` = test()
         val `three-word-target` = test()
         object `nested-module` extends BaseModule {
           val `nested-target` = test()
@@ -55,6 +56,9 @@ object MainTests extends TestSuite{
           'pos - check("nested-module.nested-target", Right(Seq(_.`nested-module`.`nested-target`)))
           'neg - check("nested-module.doesntExist", Left("Cannot resolve nested-module.doesntExist. Try `mill resolve nested-module._` to see what's available."))
         }
+      }
+      'otherCharacters - {
+        'pos1   - check("this&that", Right(Seq(_.`this&that`)))
       }
     }
     'nested - {

@@ -115,7 +115,8 @@ object ParseArgs {
   private lazy val symbolRegex = ("[$]" + symbolReplacements.keys.mkString("(", "|", ")")).r
 
   private val symbolReplacements: Map[String, Char] = Map(
-    "minus" -> '-'
+    "minus" -> '-',
+    "amp" -> '&'
   )
 
   def replaceLegalSymbols(identifier: String) : String = symbolRegex.replaceSomeIn(identifier, m => {
@@ -123,7 +124,7 @@ object ParseArgs {
   })
 
   private def parseSelector(input: String) = {
-    val identChars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9') ++ Seq('_', '-')
+    val identChars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9') ++ Seq('_', '-') ++ symbolReplacements.values.toSeq
     val ident = P( CharsWhileIn(identChars) ).!
     val ident2 = P( CharsWhileIn(identChars ++ ".") ).!
     val segment = P( ident ).map( Segment.Label)
