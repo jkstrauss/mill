@@ -5,7 +5,7 @@ import mill.define.TaskModule
 import ammonite.util.Res
 import mill.main.ResolveMetadata.singleModuleMeta
 import mill.util.Router.EntryPoint
-import mill.util.Scripts
+import mill.util.{ParseArgs, Scripts}
 
 import scala.reflect.ClassTag
 
@@ -123,7 +123,7 @@ object ResolveTasks extends Resolve[NamedTask[Any]]{
       obj
         .millInternal
         .reflect[Target[_]]
-        .find(_.label == last)
+        .find(t => ParseArgs.replaceLegalSymbols(t.label) == last)
         .map(Right(_))
 
     val command = Resolve.invokeCommand(obj, last, discover, rest).headOption

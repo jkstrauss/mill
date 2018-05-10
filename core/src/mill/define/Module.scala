@@ -3,6 +3,7 @@ package mill.define
 import java.lang.reflect.Modifier
 
 import ammonite.ops.Path
+import mill.util.ParseArgs
 
 import scala.language.experimental.macros
 import scala.reflect.ClassTag
@@ -60,7 +61,7 @@ object Module{
       for{
         m <- outer.getClass.getMethods
         if
-          !m.getName.contains('$') &&
+          !ParseArgs.replaceLegalSymbols(m.getName).contains('$') &&
           m.getParameterCount == 0 &&
           (m.getModifiers & Modifier.STATIC) == 0 &&
           runtimeCls.isAssignableFrom(m.getReturnType)
