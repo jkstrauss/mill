@@ -116,7 +116,14 @@ object ParseArgs {
 
   private val symbolReplacements: Map[String, Char] = Map(
     "minus" -> '-',
-    "amp" -> '&'
+    "tilde" -> '~',
+    "bang" -> '!',
+    "at" -> '@',
+    "hash" -> '#',
+    "percent" -> '%',
+    "up" -> '^',
+    "amp" -> '&',
+    "times" -> '*'
   )
 
   def replaceLegalSymbols(identifier: String) : String = symbolRegex.replaceSomeIn(identifier, m => {

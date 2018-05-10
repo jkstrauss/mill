@@ -40,6 +40,7 @@ object MainTests extends TestSuite{
         val `two-words` = test()
         val `this&that` = test()
         val `three-word-target` = test()
+        val `~!@#%^&*` = test()
         object `nested-module` extends BaseModule {
           val `nested-target` = test()
         }
@@ -59,6 +60,8 @@ object MainTests extends TestSuite{
       }
       'otherCharacters - {
         'pos1   - check("this&that", Right(Seq(_.`this&that`)))
+        'pos2 - check("~!@#%^&*", Right(Seq(_.`~!@#%^&*`)))
+        'neg1 - check("~!@#%^*", Left("Cannot resolve ~!@#%^*. Did you mean ~!@#%^&*?"))
       }
     }
     'nested - {
