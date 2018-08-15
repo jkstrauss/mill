@@ -1,5 +1,7 @@
 import mill.Agg
 import mill.scalalib._
+import ammonite.ops._
+import mill.define.Sources
 
 trait JUnitTests extends TestModule{
   def testFrameworks = Seq("com.novocode.junit.JUnitFramework")
@@ -12,4 +14,8 @@ object core extends JavaModule{
 object app extends JavaModule{
   def moduleDeps = Seq(core)
   object test extends Tests with JUnitTests
+}
+
+object test extends mill.Module {
+  def abc = T.sources { millSourcePath/'abc }
 }
